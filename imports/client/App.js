@@ -1,9 +1,10 @@
 
 import React from 'react';
+import { createContainer } from 'meteor/react-meteor-data'; // you need to figure out how to use withTracker
+import Items from '../api/items';
 let myName = 'JD';
 
-export default class App extends React.Component {
-
+class App extends React.Component {
 	constructor() { // first thing that runs when this class is being instantiated
 		super(); // why? allows you to access functions from the obj App, parents
 		// data flows downward!
@@ -29,6 +30,12 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+export default createContainer(() => {
+	return {
+		items: Items.find({}).fetch // get the array of objects from the Items collection
+	}
+}, App); // this is where items should push the data to App to display
 
 //data only flows from the top down!
 class Heading extends React.Component { // use this.props.count to call the count from the APP component 
