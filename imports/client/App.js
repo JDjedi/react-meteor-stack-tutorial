@@ -34,15 +34,14 @@ class App extends React.Component {
 		return (
 			<div>
 				<header>
-					<h1>Hello World!</h1>
+					<h1>Vote-App</h1> 
 				</header>
 				<main>
-					<form onSubmit={this.addItems.bind(this)}> 
+					<form className='new-items' onSubmit={this.addItems.bind(this)}> 
 						<input type='text' ref='itemOne'/>
 						<input type='text' ref='itemTwo'/>
 						<button type='submit'>Add Items</button>
 					</form>
-					<p>This is the paragraph</p>
 					{this.props.items.map((item) => { // this funtion iterated through the array from the item.js in the api folder
 						return <Item item={item} key={item._id}/> // you're pullint the Item from the import statement above in ./item
 					})}
