@@ -3,6 +3,8 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data'; // you need to figure out how to use withTracker
 import Item from './item';
 import Items from '../api/items'; // this is the file that makes the collection on mongoDB
+import { LoginButtons } from 'meteor/okgrow:accounts-ui-react';
+
 
 
 class App extends React.Component {
@@ -34,7 +36,8 @@ class App extends React.Component {
 		return (
 			<div>
 				<header>
-					<h1>Vote-App</h1> 
+					<h1>Vote-App</h1>
+					<LoginButtons />
 				</header>
 				<main>
 					<form className='new-items' onSubmit={this.addItems.bind(this)}> 

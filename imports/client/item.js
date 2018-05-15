@@ -2,20 +2,24 @@ import React from 'react';
 import Items from '../api/items';
 
 export default class Item extends React.Component {
-	voteOne() { // method to simply increment a value
-		Items.update(this.props.item._id, { // use this to update the database, update based on the _id
-			$inc: {
-				'itemOne.value': 1
-			}
-		})
+	voteOne() { 													// method to simply increment a value
+		if (Meteor.userId()) {
+			Items.update(this.props.item._id, { // use this to update the database, update based on the _id
+				$inc: { 													// method to simply increment a value
+					'itemOne.value': 1
+				}
+			})
+		}
 	}
 
 	voteTwo() {
-		Items.update(this.props.item._id, {
-			$inc: { // method to simply increment a value
-				'itemTwo.value': 1
-			}
-		})
+		if (Meteor.userId()) {
+			Items.update(this.props.item._id, {
+				$inc: { 
+					'itemTwo.value': 1
+				}
+			})
+		}
 	}
 
 	render() {
@@ -34,4 +38,6 @@ export default class Item extends React.Component {
 		) 
 	}
 }
+
+
 

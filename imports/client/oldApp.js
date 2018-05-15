@@ -52,5 +52,23 @@ class Heading extends React.Component { // use this.props.count to call the coun
 }
 
 
+// how does bind() work?
+
+var a = {name: 'jon'};
+a // 'jon'
+function showName(){ return this.name }
+showName() // returns global obj name
+showName.bind(a)() // returns 'jon'
+
+
+
+
+
+
+
+
+
+
+
 
 
