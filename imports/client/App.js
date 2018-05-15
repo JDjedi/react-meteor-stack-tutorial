@@ -14,21 +14,15 @@ class App extends React.Component {
 		const itemOne = this.refs.itemOne.value.trim();
 		const itemTwo = this.refs.itemTwo.value.trim();
 
-		if (itemOne != '' && itemTwo != '') {
-			Items.insert({
-				itemOne: {
-					text: itemOne,
-					value: 0
-				},
 
-				itemTwo: {
-					text: itemTwo,
-					value: 0
+		if (itemOne != '' && itemTwo != '') { // makes sure an empty string cannot be entered into the db
+			Meteor.call('insertNewItem', itemOne, itemTwo, (err, res) => { // server side method call! This method is in api/items.js
+				if (!err) {
+					this.refs.itemOne.value = ''; // after insert this clears the input text box
+					this.refs.itemTwo.value = '';
 				}
-			})
+			}); 
 
-			this.refs.itemOne.value = ''; // after insert this clears the input text box
-			this.refs.itemTwo.value = '';
 		}
 	}
 

@@ -2,24 +2,23 @@ import React from 'react';
 import Items from '../api/items';
 
 export default class Item extends React.Component {
-	voteOne() { 													// method to simply increment a value
-		if (Meteor.userId()) {
-			Items.update(this.props.item._id, { // use this to update the database, update based on the _id
-				$inc: { 													// method to simply increment a value
-					'itemOne.value': 1
-				}
-			})
-		}
+	// below is the old way on insecure package
+	// voteOne() { 													// method to simply increment a value
+	// 	if (Meteor.userId()) {
+	// 		Items.update(this.props.item._id, { // use this to update the database, update based on the _id
+	// 			$inc: { 													// method to simply increment a value
+	// 				'itemOne.value': 1
+	// 			}
+	// 		})
+	// 	}
+	// }
+
+	voteOne() {
+		Meteor.call('voteOnItem', this.props.item, 'itemOne');
 	}
 
 	voteTwo() {
-		if (Meteor.userId()) {
-			Items.update(this.props.item._id, {
-				$inc: { 
-					'itemTwo.value': 1
-				}
-			})
-		}
+		Meteor.call('voteOnItem', this.props.item, 'itemTwo');
 	}
 
 	render() {
