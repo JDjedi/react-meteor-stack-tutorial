@@ -5,9 +5,12 @@ const Items = new Mongo.Collection('items');
 
 if (Meteor.isServer) {
 
-	// this makes data available to the client
+	// this below makes data available to the client
 	Meteor.publish('allItems', function() {
-		return Items.find(); // returns all the items!
+		return Items.find({}, {
+			limit: 50, // returns the amount of items only as needed 
+			sort: { lastUpdated: 1 }
+		});					// returns all the items!
 	}); 
 
 
@@ -29,17 +32,25 @@ if (Meteor.isServer) {
 		},
 
 		voteOnItem(item, position) {
+			check(item, Object)
+			let lastUpdated = new Date();
 			if(Meteor.userId()) { // checks if user is logged in
 				if(position === 'itemOne') { // checks which item to update
 					Items.update(item._id, {
 						$inc: {
 							'itemOne.value': 1
+						},
+						$set: {
+							lastUpdated
 						}
 					})
 				} else {
 					Items.update(item._id, {
 						$inc: {
 							'itemTwo.value': 1
+						},
+						$set: {
+							lastUpdated
 						}
 					})
 				}

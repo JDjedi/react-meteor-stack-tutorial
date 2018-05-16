@@ -21,10 +21,12 @@ export default class Item extends React.Component {
 		Meteor.call('voteOnItem', this.props.item, 'itemTwo');
 	}
 
+	// Item.voteOne.bind(this)
+
 	render() {
 		return (
 			<div className='item'>
-				<div className='vote-one' onClick={this.voteOne.bind(this)}>
+				<div className='vote-one' onClick={this.voteOne.bind(this)}> 
 					<span>{this.props.item.itemOne.value}</span>
 					<li key={this.props.item._id}>{this.props.item.itemOne.text}</li>
 				</div>
