@@ -27,7 +27,14 @@ class App extends React.Component {
 	}
 
 	render() {
-		return (
+
+		if (!this.props.ready) { // if the data is NOT ready this will display!
+			return <div>Loading...</div>
+		}
+
+
+
+		return(
 			<div>
 				<header>
 					<h1>Vote-App</h1>
@@ -49,8 +56,10 @@ class App extends React.Component {
 }
 
 export default withTracker(() => {
+	let itemsSub = Meteor.subscribe('allItems')
 	return {
-		items: Items.find({}).fetch()
+		ready: itemsSub.ready(), // fires a true or false wehether the subscription is ready or not, how you can check if its ready
+		items: Items.find({}).fetch() // .fetch() gets us our array
 	}
 })(App);
 
